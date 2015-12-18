@@ -31,13 +31,13 @@ angular.module('admin', ['httpErrorInterceptor', 'bahmni.admin', 'bahmni.common.
 
         })
         .state('admin.formBuilder',
-        {   url: '/formBuilder/new',
+        {   url: '/formbuilder/new',
             templateUrl: 'views/formIndex.html',
-            controller: 'FormBuilderController'
+            controller: ''
         })
         .state('admin.formIndex',
-        {   url: '/formBuilder/build',
-            templateUrl: 'views/formBuild.html',
+        {   url: '/formbuilder/configure',
+            templateUrl: 'views/formBuilder.html',
             controller: ''
         });
     $httpProvider.defaults.headers.common['Disable-WWW-Authenticate'] = true;

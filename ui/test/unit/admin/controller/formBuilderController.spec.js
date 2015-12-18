@@ -12,6 +12,7 @@ describe("FormBuilderController", function () {
             controller = $controller;
             scope = $rootScope.$new();
         });
+        createController();
     });
 
     function createController() {
@@ -35,7 +36,8 @@ describe("FormBuilderController", function () {
         });
     };
 
-    iit('should initialize controller' ,function(){
+    it('should initialize controller' ,function(){
        createController();
     });
+    
 });
