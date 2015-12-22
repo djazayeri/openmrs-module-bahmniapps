@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('admin', ['httpErrorInterceptor', 'bahmni.admin', 'bahmni.common.routeErrorHandler', 'ngSanitize', 'bahmni.common.uiHelper', 'bahmni.common.config',  'bahmni.common.i18n', 'pascalprecht.translate', 'ngCookies', 'angularFileUpload'])
+angular.module('admin', ['httpErrorInterceptor', 'bahmni.admin', 'bahmni.common.routeErrorHandler', 'bahmni.common.conceptSet', 'ngSanitize', 'bahmni.common.uiHelper', 'bahmni.common.config', 'bahmni.common.i18n', 'pascalprecht.translate', 'ngCookies', 'angularFileUpload'])
     .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$bahmniTranslateProvider', function ($stateProvider, $httpProvider, $urlRouterProvider, $bahmniTranslateProvider) {
         $urlRouterProvider.otherwise('/dashboard');
     $stateProvider.state('admin', {
@@ -33,7 +33,7 @@ angular.module('admin', ['httpErrorInterceptor', 'bahmni.admin', 'bahmni.common.
         .state('admin.formBuilder',
         {   url: '/formbuilder/new',
             templateUrl: 'views/formIndex.html',
-            controller: ''
+            controller: 'FormBuilderController'
         })
         .state('admin.formIndex',
         {   url: '/formbuilder/configure',
