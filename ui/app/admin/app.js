@@ -28,20 +28,31 @@ angular.module('admin', ['httpErrorInterceptor', 'bahmni.admin', 'bahmni.common.
         {   url: '/csvExport',
             templateUrl: 'views/csvexport.html',
             controller: 'CSVExportController'
-
         })
-        .state('admin.formBuilder',
-        {   url: '/formbuilder/new',
-            templateUrl: 'views/formIndex.html',
-            controller: 'FormBuilderController'
+        .state('admin.formBuilder', {
+            abstract: true,
+            controller: 'FormBuilderController',
+            controllerAs: 'formBuilder',
+            template: "<div ui-view='home'></div><div ui-view='editor'></div>",
         })
-        .state('admin.formIndex',
-        {   url: '/formbuilder/configure',
-            templateUrl: 'views/formBuilder.html',
-            controller: ''
+        .state('admin.formBuilder.home',
+        {   url: '/formbuilder/home',
+            views: {
+                home: {
+                    templateUrl: 'views/formIndex.html',
+                }
+            }
+        })
+        .state('admin.formBuilder.editor',
+        {   url: '/formbuilder/editor',
+            views: {
+                editor: {
+                    templateUrl: 'views/formBuilder.html',
+                }
+            }
         });
     $httpProvider.defaults.headers.common['Disable-WWW-Authenticate'] = true;
-    // $bahmniTranslateProvider.init({app: 'admin', shouldMerge: true});
+    $bahmniTranslateProvider.init({app: 'admin', shouldMerge: true});
 }]).
     run(function ($rootScope, $templateCache) {
         //Disable caching view template partials

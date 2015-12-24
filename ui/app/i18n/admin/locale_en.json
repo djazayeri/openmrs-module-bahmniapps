@@ -4,5 +4,6 @@
     "location": "Location",
     "login": "Login",
     "selectLocation": "Select Location",
-    "clinical_key": "Clinical"
+    "clinical_key": "Clinical",
+    "errorFormTitleExist" : "Form title already exist"
 }

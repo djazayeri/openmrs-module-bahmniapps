@@ -1,17 +1,20 @@
 'use strict';
 
 angular.module('bahmni.admin')
-    .controller('FormBuilderController', ['$scope', 'spinner', 'conceptSetService', function ($scope, spinner, conceptSetService) {
+    .controller('FormBuilderController', ['$scope', 'spinner', 'conceptSetService', '$state', function ($scope, spinner, conceptSetService, $state) {
 
         $scope.formType = 'none';
 
         $scope.formTitle = null;
+        $scope.errors = {};
+        console.log($scope.formTitle);
 
         var flattenedArray = [];
 
         var allTemplates = null;
 
         $scope.getConceptSetData = function () {
+            clearValidationErrors();
             var numberOfLevels = 2;
             var fields = ['uuid', 'display'];
             var customRepresentation = Bahmni.ConceptSet.CustomRepresentationBuilder.build(fields, 'setMembers', numberOfLevels);
@@ -22,14 +25,14 @@ angular.module('bahmni.admin')
                 allTemplates = response.data.results[0];
                 flattenedArray = [];
                 flatten(allTemplates);
-                var pattern = new RegExp(".*"+$scope.formTitle+".*", 'i');
-                return _.filter(flattenedArray, function(element) {
+                var pattern = new RegExp(".*" + $scope.formTitle + ".*", 'i');
+                return _.filter(flattenedArray, function (element) {
                     return pattern.test(element);
                 });
             });
-        };
+        }
 
-        function flatten(result) {
+        var flatten = function(result) {
             var members = result.setMembers;
             if (members != undefined && members.length > 0) {
                 for (var index = 0; index < members.length;) {
@@ -38,5 +41,23 @@ angular.module('bahmni.admin')
             }
             flattenedArray.push(result.display);
         }
-    }
-    ]);
+
+        $scope.build = function () {
+            if (validate()) {
+                $state.go("admin.formBuilder.editor")
+            }
+        };
+
+        var clearValidationErrors = function(){
+            $scope.errors = {};
+        }
+
+        var validate = function () {
+            clearValidationErrors();
+            if (_.contains(flattenedArray, $scope.formTitle)) {
+                $scope.errors.formTitle = "errorFormTitleExist";
+                return false;
+            }
+            return true;
+        };
+    }]);

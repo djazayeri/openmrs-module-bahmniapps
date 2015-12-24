@@ -10,7 +10,7 @@
                     <h3>Build a New Form</h3>
                 </div>
             </article>
-            <form class="clearfix" ng-show="formType=='new'">
+            <form class="clearfix" ng-submit="formBuilder.build()" ng-show="formType=='new'">
                 <article class="form-field">
                     <div class="field-attribute">
                         <label>Form Title
@@ -18,10 +18,11 @@
                         </label>
                     </div>
                     <div class="field-value">
-                        <input type="text" bahmni-autocomplete ng-model="formTitle" source="getConceptSetData">
+                        <input ng-class="{'illegalValue': errors.formTitle}" type="text" bahmni-autocomplete ng-model="formBuilder.formTitle" source="getConceptSetData">
+                        <div ng-show="errors.formTitle" class="is-abnormal">{{errors.formTitle | translate}}</div>
                     </div>
                 </article>
-                <button type="submit" class="right confirm" accesskey="b"><u>B</u>uild Your Form</button>
+                <button type="submit" class="right confirm"  accesskey="b"><u>B</u>uild Your Form</button>
             </form>
         </div>
         <div class="box">
@@ -41,7 +42,7 @@
                         </label>
                     </div>
                     <div class="field-value">
-                        <input type="text">
+                        <input type="text" bahmni-autocomplete ng-model="formTitle" source="getConceptSetData">
                     </div>
                 </article>
                 <button type="submit" class="right confirm" accesskey="b"><u>B</u>uild Your Form</button>
@@ -49,4 +50,4 @@
         </div>
     </div>
 </div>
-<a href="#/formbuilder/configure">Form Builder panel</a>
+<a href="#/dashboard">Form Builder panel</a>
