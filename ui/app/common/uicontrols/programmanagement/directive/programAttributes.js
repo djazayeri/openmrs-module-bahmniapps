@@ -10,8 +10,11 @@ angular.module('bahmni.common.uicontrols.programmanagment')
                     return programAttribute.attributeType.uuid == programAttributeType.uuid;
                 });
 
-                if(programAttribute != undefined && !programAttribute.voided) {
+               if(programAttribute != undefined && !programAttribute.voided) {
                     programAttributesMap[programAttributeType.name] = programAttribute.value;
+                    if(programAttributeType.format === "org.bahmni.module.bahmnicore.customdatatype.datatype.CodedConceptDatatype") {
+                        programAttributesMap[programAttributeType.name] = programAttribute.value && programAttribute.value.uuid;
+                    }
                     if (isDateFormat(programAttributeType.format)) {
                         programAttributesMap[programAttributeType.name] = Bahmni.Common.Util.DateUtil.parseServerDateToDate(programAttributesMap[programAttributeType.name]);
                     }
